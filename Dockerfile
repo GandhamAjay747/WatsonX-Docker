@@ -1,4 +1,4 @@
-
+ 
 # Use an official Python runtime as a parent image
 FROM python:3.10-slim
 
@@ -8,6 +8,13 @@ ENV PYTHONUNBUFFERED=1
 
 # Set the working directory in the container
 WORKDIR /app
+
+# Install system dependencies for mysqlclient
+RUN apt-get update && apt-get install -y \
+    default-libmysqlclient-dev \
+    gcc \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file
 COPY requirements.txt /app/
