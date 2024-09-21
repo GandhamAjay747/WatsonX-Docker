@@ -1,11 +1,6 @@
-Django==5.0.6
-mysqlclient==2.1.1 
-numpy==2.1.0
-pandas==2.2.2
-statsmodels==0.14.2
-matplotlib==3.7.1
-mysql-connector-python==8.0.24
-scikit-learn==1.2.2
+Django
+mysqlclient
+mysql-connector-python
 ibm-cloud-sdk-core
 ibm-watson-machine-learning
 ibm-cos-sdk
