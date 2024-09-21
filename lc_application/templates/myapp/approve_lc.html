@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LC Application</title>
+    {% load static %}
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/dashboardPage.css' %}"> 
+    <!-- Link to your custom styles -->
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-..." crossorigin="anonymous">
+    
+</head>
+<body>
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="container-fluid p-0">
+        <!-- Header Section -->
+        <header class="navbar navbar-expand-lg navbar-light custom-header w-100">
+            <div class="container-fluid p-0">
+                <a class="navbar-brand" href="#">
+                    <img src="{% static 'main/Logo.png' %}" alt="Logo" class="header-logo">
+                </a>
+                <span class="navbar-text header-title">Letter of Credit </span>
+                <div class="d-flex">
+                    <a href="/" class="btn btn-outline-dark logout-link">LOGOUT</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <!-- Sidebar with specific Font Awesome Icons -->
+            <nav class="sidebar">
+                <ul>
+                    <li><a href="{% url 'dashboardPage' %}"><i class="fas fa-tasks"></i> DASHBOARD</a></li>
+                    <li><a href="{% url 'add_lc' %}"><i class="fas fa-plus-square"></i> ADD LC</a></li>
+                    <li><a href="{% url 'view_lc' %}"><i class="fas fa-file-alt"></i> VIEW LC</a></li>
+                    <li><a href="{% url 'lc_predict' %}"><i class="fas fa-chart-line"></i> PREDICT LC</a></li>
+                </ul>
+            </nav>
+
+                <!-- Main content goes here -->
+                <main class="content">
+                    <div class="form-container">
+                        <h1>Approve LC</h1>
+                        <form method="post" action="{% url 'lc_approve' lc.id %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="lc-id">LC ID</label>
+                                <input type="text" id="lc-id" name="lc-id" value="{{ lc.id }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="approval-status">Approval Status</label>
+                                <select id="approval-status" name="approval_status">
+                                    <option value="approved">Approved</option>
+                                    <option value="rejected">Rejected</option>
+                                </select>
+                                
+                            </div>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </main>
+        </div>
+
+        <footer class="footer">
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Use</a> | 
+            <a href="#">Contact Us</a>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelector('form').onsubmit = function() {
+            console.log("Approval status:", document.getElementById('approval-status').value);
+        };
+    </script>
+    
+</body>
+</html>
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF; /* Soft White */
+    color: #333;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.container-fluid {
+    width: 100%; /* Ensures full width for the header */
+}
+
+.custom-header {
+    background-color: rgba(240, 240, 240, 0.7); /* Light Gray with 70% transparency */
+    backdrop-filter: blur(10px); /* Adds blur effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow instead of border */
+    width: 100%;
+    position: relative;
+    z-index: 10; /* Ensures it's on top of other elements */
+    padding: 15px 0;
+    height: 70px;
+}
+
+.header-logo {
+    height: 70px;
+    width: 150px;
+    margin-right: 15px;
+}
+
+.header-title {
+    font-size: 24px;
+    color: #333333; /* Darker text for readability */
+}
+
+.logout-link {
+    color: #333333;
+    text-decoration: none;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+}
+
+.main-layout {
+    display: flex;
+    flex-grow: 1;
+    width: 100%; /* Ensure full width for main layout */
+}
+
+.sidebar {
+    background-color: rgba(0, 69, 124, 0.5); /* Dark Blue with 50% transparency */
+    backdrop-filter: blur(10px); /* Adds blur effect */
+    width: 230px;
+    padding: 20px;
+    flex-shrink: 0;
+    border-radius: 20px; /* Curved edges for the sidebar */
+    margin: 20px 10px; /* Creates space around the sidebar */
+    height: calc(100vh - 100px); /* Ensures sidebar takes up the full height minus the header */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #FFFFFF; /* White text for better contrast */
+    font-size: 1.1rem;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    color: #CCCCCC; /* Lighter color on hover */
+}
+
+.content {
+    background-color: rgba(230, 240, 255, 0.5); /* Pale Blue with 50% transparency */
+    backdrop-filter: blur(10px); /* Adds blur effect */
+    flex-grow: 1;
+    padding: 20px;
+    color: #00457C; /* Dark Blue for text */
+    border-radius: 20px; /* Matches the curved edges of the sidebar */
+    margin: 20px;
+    width: calc(100% - 290px); /* Full width minus sidebar width */
+    margin-left:-1px;
+}
+
+.footer {
+    background-color: #E8E8E8; /* Light Gray for the footer */
+    color: #00457C; /* Dark Blue for the text */
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer a {
+    color: #00457C; /* Dark Blue for footer links */
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Blobs */
+/* Blue blob */
+body::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(0, 69, 124, 0.5); /* Dark Blue */
+    filter: blur(100px);
+    top: 10%;
+    left: 20%;
+    z-index: -1;
+}
+
+/* Greenish blob */
+body::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(102, 204, 153, 0.5); /* Greenish Teal */
+    filter: blur(100px);
+    top: 50%;
+    right: 20%;
+    z-index: -1;
+}
+
+ 
+body::after {
+    top: 50%;
+    right: 20%;
+    background: rgba(0, 0, 255, 0.5); /* Blue blob */
+}
+ 
+.blob {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(0, 255, 0, 0.5);
+    filter: blur(100px);
+    z-index: -1;
+}
+ 
+.blob1 {
+    top: 30%;
+    left: 50%;
+    background: rgba(0, 255, 0, 0.5); /* Green blob */
+}
+ 
+.blob2 {
+    top: 70%;
+    left: 10%;
+    background: rgba(255, 255, 0, 0.5); /* Yellow blob */
+}
+ /* Form Container Styling */
+ .form-container {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            margin: 70px auto; /* Center the form container */
+        }
+
+        .form-container h1 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: rgba(0, 69, 124, 0.5); /* Dark Blue */
+            color: #fff;
+            border: none;
+            padding: 10px;
+            width: 80%;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: rgba(0, 69, 124, 0.7); /* Darker blue on hover */
+        }
+
+
+</style>

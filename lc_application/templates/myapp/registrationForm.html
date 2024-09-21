@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - LetterOfCredit</title>
+ 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+ 
+    <link href="https://fonts.googleapis.com/css2?family=SamsungOne:wght@400;700&display=swap" rel="stylesheet">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    {% load static %}
+    <style>
+        body {
+            font-family: 'SamsungOne', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color:rgba(230, 240, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+ 
+        .header {
+            background-color: #4b2a26;
+            padding: 15px 30px;
+            color: #FFF;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #5d4037;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+ 
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+ 
+        .login-link a {
+            color: #FFF;
+            font-size: 18px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+ 
+        .login-link a:hover {
+            color: #f5f5f5;
+        }
+ 
+        .blob {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(0, 255, 0, 0.5);
+    filter: blur(100px);
+    z-index: -1;
+}
+ 
+.blob1 {
+    top: 30%;
+    left: 50%;
+    background: rgba(0, 255, 0, 0.5); /* Green blob */
+}
+ 
+.blob2 {
+    top: 70%;
+    left: 10%;
+    background: rgba(255, 255, 0, 0.5); /* Yellow blob */
+}
+ 
+        .login-container {
+            max-width: 800px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: #fff;
+            border-radius: 10px;
+            margin: auto;
+            animation: fadeIn 0.5s ease-in-out;
+            height:110vh;
+
+        }
+ 
+        .login-card {
+            display: flex;
+            flex-direction: row;
+            
+        }
+ 
+        .login-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+ 
+        .login-header h2 {
+            font-size: 1.8rem;
+            color: #333;
+            font-weight: bold;
+        }
+ 
+        .login-body {
+            padding: 20px;
+        }
+ 
+        .login-body .form-group {
+            margin-bottom: 1.5rem;
+        }
+ 
+        .login-body .form-control {
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+ 
+        .login-body .form-control:focus {
+            border-color: #333;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            outline: none;
+        }
+ 
+        .login-body .btn {
+            background: #333;
+            color: #fff;
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border: none;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+ 
+        .login-body .btn:hover {
+            background: #000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+ 
+        .extra-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+ 
+        .extra-links p, .extra-links a {
+            font-size: 0.9rem;
+            color: #333;
+            transition: color 0.3s;
+        }
+ 
+        .extra-links a {
+            text-decoration: none;
+        }
+ 
+        .extra-links a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+ 
+        .extra-links a.forgot-password {
+            color: gray;
+            text-decoration: none;
+            font-style: italic;
+        }
+ 
+        .extra-links a.forgot-password:hover {
+            text-decoration: underline;
+        }
+ 
+        .login-image {
+            position: relative;
+            height: 70%;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: -10px;
+        }
+ 
+        .login-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+ 
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: #000;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+ 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+ 
+        .footer {
+            background-color: #4b2a26;
+            color: #FFF;
+            text-align: center;
+            padding: 15px;
+            margin-top: auto; /* Push the footer to the bottom */
+            width: 100%;
+            border-top: 2px solid #5d4037;
+        }
+ 
+        .footer a {
+            color: #FFF;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+ 
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        body::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(0, 69, 124, 0.5); /* Dark Blue */
+    filter: blur(100px);
+    top: 10%;
+    left: 20%;
+    z-index: -1;
+}
+
+/* Greenish blob */
+body::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(0, 69, 124, 0.5); /* Dark Blue */
+    filter: blur(100px);
+    top: 10%;
+    left: 20%;
+    z-index: -1;
+}
+
+/* Greenish blob */
+body::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(102, 204, 153, 0.5); /* Greenish Teal */
+    filter: blur(100px);
+    top: 50%;
+    right: 20%;
+    z-index: -1;
+}
+
+ 
+body::after {
+    top: 50%;
+    right: 20%;
+    background: rgba(0, 0, 255, 0.5); /* Blue blob */
+}
+        .header-title {
+    font-size: 24px;
+    color: #333333; /* Darker text for readability */
+    text-align: center;
+    margin-top: 20px;
+}
+ 
+    </style>
+</head>
+<body>
+    <span class="navbar-text header-title">Letter of Credit</span>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="row no-gutters">
+                <div class="col-md-6 d-none d-md-block">
+                    <div class="login-header">
+                        <h2>Sign Up</h2>
+                    </div>
+                    <div class="login-image">
+                        <img src="{% static 'main/SignUp_Bluish_LOC.webp' %}" alt="Create an Account Image">
+                        <!-- <div class="overlay-text">Create an Account</div> -->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="login-body">
+                        <form method="post" action="{% url 'registrationForm' %}">
+                            {% csrf_token %}
+                           
+                            <div class="form-group">
+                                <label for="username">Username *</label>
+                                <input type="text" class="form-control" id="username" name="username" value="{{ request.POST.username }}" required>
+                                <!-- Display username error -->
+                                {% if errors.username %}
+                                    <div class="text-danger">{{ errors.username }}</div>
+                                {% endif %}
+                            </div>
+                           
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ request.POST.email }}" required>
+                                <!-- Display email error -->
+                                {% if errors.email %}
+                                    <div class="text-danger">{{ errors.email }}</div>
+                                {% endif %}
+                            </div>
+                           
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="text" class="form-control" id="phone" name="phone" value="{{ request.POST.phone }}">
+                            </div>
+                           
+                            <div class="form-group">
+                                <label for="password">Password *</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                                <!-- Display password error -->
+                                {% if errors.password %}
+                                    <div class="text-danger">{{ errors.password }}</div>
+                                {% endif %}
+                            </div>
+                           
+                            <div class="form-group">
+                                <label for="bio">Description of the applicant</label>
+                                <textarea class="form-control" id="bio" name="bio" rows="2">{{ request.POST.bio }}</textarea>
+                            </div>
+                           
+                            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                        </form>
+                    
+                       
+                        <div class="extra-links">
+                            <p>Already have an account? <a href="{% url 'loginForm' %}">Login</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+ 
+ 

@@ -1,0 +1,155 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FAF3E3;
+}
+ 
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+ 
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4B2A26;
+    padding: 10px 20px;
+    color: #FFF;
+}
+ 
+.header-title {
+    font-size: 1.5rem;
+    margin-left:50px;
+}
+.header-logo{
+    width:130px;
+    height:50px;
+}
+ 
+
+ 
+.login-link a {
+    color: #FFF;
+    text-decoration: none;
+}
+ 
+.main-content {
+    margin-top: 20px;
+}
+ 
+.hero-section {
+    position: relative;
+    text-align: center;
+}
+ 
+.hero-image {
+    width: 100%;
+    border-radius: 8px;
+}
+ 
+.hero-text h1 {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #FFF;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 2rem;
+}
+ 
+.content-section {
+    display: flex;
+    margin-top: 20px;
+    gap: 20px;
+}
+ 
+.text-content {
+    flex: 2;
+    padding: 20px;
+    background-color: #ffe6e6;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+ 
+.text-content h2 {
+    color: #4B2A26;
+}
+ 
+.text-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding: 10px;
+    text-align: justify;
+}
+ 
+.text-content ul li {
+    margin-bottom: 10px;
+    text-align: justify;
+}
+ 
+.image-content {
+    flex: 1;
+}
+ 
+.image-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+ 
+footer {
+    margin-top: 20px;
+    padding: 10px 0;
+    text-align: center;
+    background-color: #4B2A26;
+    color: #FFF;
+}
+ 
+footer a {
+    color: #FFF;
+    text-decoration: none;
+    margin: 0 10px;
+}
+ 
+ 
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 1.2rem;
+    }
+ 
+    .content-section {
+        flex-direction: column;
+    }
+ 
+    .text-content {
+        padding-right: 0;
+    }
+}
+ 
+/* Styles for mobile phones */
+@media (max-width: 480px) {
+    .header-title {
+        font-size: 1rem;
+    }
+ 
+    .hero-text h1 {
+        font-size: 1.5rem;
+        padding: 5px;
+    }
+ 
+    .container {
+        padding: 10px;
+    }
+ 
+    footer a {
+        display: block;
+        margin: 5px 0;
+    }
+}
+ 
+ 

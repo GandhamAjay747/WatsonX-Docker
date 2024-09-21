@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LC Application</title>
+    {% load static %}
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/dashboardPage.css' %}"> 
+    <!-- Link to your custom styles -->
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-..." crossorigin="anonymous">
+    
+</head>
+<body>
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="container-fluid p-0">
+        <!-- Header Section -->
+        <header class="navbar navbar-expand-lg navbar-light custom-header w-100">
+            <div class="container-fluid p-0">
+                <a class="navbar-brand" href="#">
+                    <img src="{% static 'main/Logo.png' %}" alt="Logo" class="header-logo">
+                </a>
+                <span class="navbar-text header-title">Letter of Credit </span>
+                <div class="d-flex">
+                    <a href="/" class="btn btn-outline-dark logout-link">LOGOUT</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <!-- Sidebar with specific Font Awesome Icons -->
+            <nav class="sidebar">
+                <ul>
+                    <li><a href="{% url 'dashboardPage' %}"><i class="fas fa-tasks"></i> DASHBOARD</a></li>
+                    <li><a href="{% url 'add_lc' %}"><i class="fas fa-plus-square"></i> ADD LC</a></li>
+                    <li><a href="{% url 'view_lc' %}"><i class="fas fa-file-alt"></i> VIEW LC</a></li>
+                    <li><a href="{% url 'lc_predict' %}"><i class="fas fa-chart-line"></i> PREDICT LC</a></li>
+                </ul>
+            </nav>
+
+                <!-- Main content goes here -->
+                <div class="content">
+                    <div class="lchead">
+                        <h1 style="text-align: center;">Edit LC</h1>
+                    </div>
+    
+                    <form class="lc-form" method="post">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="lc_number">LC Number</label>
+                                <input type="text" class="form-control" id="lc_number" name="lc_number" value="{{ form.lc_number.value }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="applicant_name">Applicant Name</label>
+                                <input type="text" class="form-control" id="applicant_name" name="applicant_name" value="{{ form.applicant_name.value }}" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="beneficiary_name">Beneficiary Name</label>
+                                <input type="text" class="form-control" id="beneficiary_name" name="beneficiary_name" value="{{ form.beneficiary_name.value }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="issuing_bank">Issuing Bank</label>
+                                <input type="text" class="form-control" id="issuing_bank" name="issuing_bank" value="{{ form.issuing_bank.value }}" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="advising_bank">Advising Bank</label>
+                                <input type="text" class="form-control" id="advising_bank" name="advising_bank" value="{{ form.advising_bank.value }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="negotiating_bank">Negotiating Bank</label>
+                                <input type="text" class="form-control" id="negotiating_bank" name="negotiating_bank" value="{{ form.negotiating_bank.value }}" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="confirming_bank">Confirming Bank</label>
+                                <input type="text" class="form-control" id="confirming_bank" name="confirming_bank" value="{{ form.confirming_bank.value }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="currency">Currency</label>
+                                <input type="text" class="form-control" id="currency" name="currency" value="{{ form.currency.value }}" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="issue_date">Issue Date</label>
+                                <input type="date" class="form-control" id="issue_date" name="issue_date" value="{{ form.issue_date.value|date:'Y-m-d' }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="expiry_date">Expiry Date</label>
+                                <input type="date" class="form-control" id="expiry_date" name="expiry_date" value="{{ form.expiry_date.value|date:'Y-m-d' }}" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="lc_amount">LC Amount</label>
+                                <input type="number" class="form-control" id="lc_amount" name="lc_amount" value="{{ form.lc_amount.value }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select class="form-control" id="status" name="status" required>
+                                    <option value="NOT APPROVED" {% if form.status.value == "NOT APPROVED" %}selected{% endif %}>NOT APPROVED</option>
+                                    <option value="APPROVED" {% if form.status.value == "APPROVED" %}selected{% endif %}>APPROVED</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="lc_documents">Attach LC Documents</label>
+                                <div class="custom-file-upload">
+                                    <input type="file" class="form-control" id="lc_documents" name="lc_documents">
+                                    <label for="lc_documents" class="upload-area">
+                                        <i class="fas fa-upload"></i>
+                                        <span>Upload Document</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn">Save Changes</button>
+                        <a href="{% url 'view_lc' %}" class="btn btn-secondary">Cancel</a>
+                    </form>
+                </div>
+        </div>
+
+        <footer class="footer">
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Use</a> | 
+            <a href="#">Contact Us</a>
+        </footer>
+    </div>
+</body>
+</html>
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF; /* Soft White */
+    color: #333;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.container-fluid {
+    width: 100%; /* Ensures full width for the header */
+}
+
+.custom-header {
+    background-color: rgba(240, 240, 240, 0.7); /* Light Gray with 70% transparency */
+    backdrop-filter: blur(10px); /* Adds blur effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow instead of border */
+    width: 100%;
+    position: relative;
+    z-index: 10; /* Ensures it's on top of other elements */
+    padding: 15px 0;
+    height: 70px;
+}
+
+.header-logo {
+    height: 70px;
+    width: 150px;
+    margin-right: 15px;
+}
+
+.header-title {
+    font-size: 24px;
+    color: #333333; /* Darker text for readability */
+}
+
+.logout-link {
+    color: #333333;
+    text-decoration: none;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+}
+
+.main-layout {
+    display: flex;
+    flex-grow: 1;
+    width: 100%; /* Ensure full width for main layout */
+}
+
+.sidebar {
+    background-color: rgba(0, 69, 124, 0.5); /* Dark Blue with 50% transparency */
+    backdrop-filter: blur(10px); /* Adds blur effect */
+    width: 230px;
+    padding: 20px;
+    flex-shrink: 0;
+    border-radius: 20px; /* Curved edges for the sidebar */
+    margin: 20px 10px; /* Creates space around the sidebar */
+    height: calc(100vh + 320px); /* Ensures sidebar takes up the full height minus the header */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #FFFFFF; /* White text for better contrast */
+    font-size: 1.1rem;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    color: #CCCCCC; /* Lighter color on hover */
+}
+
+.content {
+    background-color: rgba(230, 240, 255, 0.5); /* Pale Blue with 50% transparency */
+    backdrop-filter: blur(10px); /* Adds blur effect */
+    flex-grow: 1;
+    padding: 20px;
+    color: #00457C; /* Dark Blue for text */
+    border-radius: 20px; /* Matches the curved edges of the sidebar */
+    margin: 20px;
+    width: calc(100% - 290px); /* Full width minus sidebar width */
+    margin-left:-1px;
+}
+
+.footer {
+    background-color: #E8E8E8; /* Light Gray for the footer */
+    color: #00457C; /* Dark Blue for the text */
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer a {
+    color: #00457C; /* Dark Blue for footer links */
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Blobs */
+/* Blue blob */
+body::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(0, 69, 124, 0.5); /* Dark Blue */
+    filter: blur(100px);
+    top: 10%;
+    left: 20%;
+    z-index: -1;
+}
+
+/* Greenish blob */
+body::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(102, 204, 153, 0.5); /* Greenish Teal */
+    filter: blur(100px);
+    top: 50%;
+    right: 20%;
+    z-index: -1;
+}
+
+ 
+body::after {
+    top: 50%;
+    right: 20%;
+    background: rgba(0, 0, 255, 0.5); /* Blue blob */
+}
+ 
+.blob {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(0, 255, 0, 0.5);
+    filter: blur(100px);
+    z-index: -1;
+}
+ 
+.blob1 {
+    top: 30%;
+    left: 50%;
+    background: rgba(0, 255, 0, 0.5); /* Green blob */
+}
+ 
+.blob2 {
+    top: 70%;
+    left: 10%;
+    background: rgba(255, 255, 0, 0.5); /* Yellow blob */
+}
+.lc-form {
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 69, 124, 0.5);
+        margin: 0 auto;
+        width: 80%;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group label {
+        font-size: 14px;
+        color: rgba(0, 69, 124, 0.5);
+        margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid rgba(0, 69, 124, 0.5);
+        border-radius: 4px;
+        background-color: #fff;
+    }
+
+    .submit-btn {
+        display: block;
+        width: 30%;
+        padding: 12px;
+        background-color: rgba(0, 69, 124, 0.5);
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        text-align: center;
+        margin: 20px auto;
+    }
+     /* Upload File Styling */
+     .form-control[type="file"] {
+        display: none;
+    }
+
+    .custom-file-upload {
+        position: relative;
+    }
+
+    .upload-area {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background-color: #fff;
+        border: 2px dashed rgba(0, 69, 124, 0.5);
+        color: rgba(0, 69, 124, 0.5);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        text-align: center;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .upload-area i {
+        margin-right: 10px;
+        font-size: 24px;
+    }
+
+    .upload-area:hover {
+        background-color: #e0ddd9;
+        color: rgba(0, 69, 124, 0.5);
+    }
+
+
+</style>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LC Application - View LCs</title>
+    {% load static %}
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/dashboardPage.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-..." crossorigin="anonymous">
+</head>
+<body>
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="container-fluid p-0">
+        <!-- Header Section -->
+        <header class="navbar navbar-expand-lg navbar-light custom-header w-100">
+            <div class="container-fluid p-0">
+                <a class="navbar-brand" href="#">
+                    <img src="{% static 'main/Logo.png' %}" alt="Logo" class="header-logo">
+                </a>
+                <span class="navbar-text header-title">Letter of Credit</span>
+                <div class="d-flex">
+                    <a href="/" class="btn btn-outline-dark logout-link">LOGOUT</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <!-- Sidebar with specific Font Awesome Icons -->
+            <nav class="sidebar">
+                <ul>
+                    <li><a href="{% url 'dashboardPage' %}"><i class="fas fa-tasks"></i> DASHBOARD</a></li>
+                    <li><a href="{% url 'add_lc' %}"><i class="fas fa-plus-square"></i> ADD LC</a></li>
+                    <li><a href="{% url 'view_lc' %}"><i class="fas fa-file-alt"></i> VIEW LC</a></li>
+                    <li><a href="{% url 'lc_predict' %}"><i class="fas fa-chart-line"></i> PREDICT LC</a></li>
+                </ul>
+            </nav>
+
+            <!-- Content Section - View LCs -->
+            <main class="content">
+                <div class="lchead">
+                    <h1>View LC</h1>
+                </div>
+                <div class="table-container">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>LC No</th>
+                                <th>Applicant Name</th>
+                                <th>Beneficiary Name</th>
+                                <th>Issuing Bank</th>
+                                <th>Advising Bank</th>
+                                <th>Negotiating Bank</th>
+                                <th>Confirming Bank</th>
+                                <th>LC Amount</th>
+                                <th>Currency</th>
+                                <th>Issue Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for lc in lcs %}
+                            <tr>
+                                <td>{{ lc.lc_number }}</td>
+                                <td>{{ lc.applicant_name }}</td>
+                                <td>{{ lc.beneficiary_name }}</td>
+                                <td>{{ lc.issuing_bank }}</td>
+                                <td>{{ lc.advising_bank }}</td>
+                                <td>{{ lc.negotiating_bank }}</td>
+                                <td>{{ lc.confirming_bank }}</td>
+                                <td>{{ lc.lc_amount }}</td>
+                                <td>{{ lc.currency }}</td>
+                                <td>{{ lc.issue_date }}</td>
+                                <td>{{ lc.status }}</td>
+                                <td class="action-buttons">
+                                    <a href="{% url 'edit_lc' lc.id %}">Edit</a>
+                                    <a href="{% url 'delete_lc' lc.id %}">Delete</a>
+                                    <a href="{% url 'lc_approve' lc.id %}" class="btn btn-success btn-sm">Approve</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Use</a> | 
+            <a href="#">Contact Us</a>
+        </footer>
+    </div>
+</body>
+</html>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #FFFFFF; /* Soft White */
+        color: #333;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .container-fluid {
+        width: 100%; /* Ensures full width for the header */
+    }
+    .blob {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(0, 255, 0, 0.5);
+    filter: blur(100px);
+    z-index: -1;
+}
+ 
+.blob1 {
+    top: 30%;
+    left: 50%;
+    background: rgba(0, 255, 0, 0.5); /* Green blob */
+}
+ 
+.blob2 {
+    top: 70%;
+    left: 10%;
+    background: rgba(255, 255, 0, 0.5); /* Yellow blob */
+}
+
+    .custom-header {
+        background-color: rgba(240, 240, 240, 0.7); /* Light Gray with 70% transparency */
+        backdrop-filter: blur(10px); /* Adds blur effect */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow instead of border */
+        width: 100%;
+        position: relative;
+        z-index: 10; /* Ensures it's on top of other elements */
+        padding: 15px 0;
+        height: 70px;
+    }
+
+    .header-logo {
+        height: 70px;
+        width: 150px;
+        margin-right: 15px;
+    }
+
+    .header-title {
+        font-size: 24px;
+        color: #333333; /* Darker text for readability */
+    }
+
+    .logout-link {
+        color: #333333;
+        text-decoration: none;
+    }
+
+    .logout-link:hover {
+        text-decoration: underline;
+    }
+
+    .main-layout {
+        display: flex;
+        flex-grow: 1;
+        width: 100%; /* Ensure full width for main layout */
+    }
+
+    .sidebar {
+        background-color: rgba(0, 69, 124, 0.5); /* Dark Blue with 50% transparency */
+        backdrop-filter: blur(10px); /* Adds blur effect */
+        width: 230px;
+        padding: 20px;
+        flex-shrink: 0;
+        border-radius: 20px; /* Curved edges for the sidebar */
+        margin: 20px 10px; /* Creates space around the sidebar */
+        height: calc(100vh - 100px); /* Ensures sidebar takes up the full height minus the header */
+    }
+
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar ul li {
+        margin-bottom: 20px;
+    }
+
+    .sidebar ul li a {
+        text-decoration: none;
+        color: #FFFFFF; /* White text for better contrast */
+        font-size: 1.1rem;
+        display: block;
+    }
+
+    .sidebar ul li a:hover {
+        color: #CCCCCC; /* Lighter color on hover */
+    }
+
+    .content {
+        background-color: rgba(230, 240, 255, 0.5); /* Pale Blue with 50% transparency */
+        backdrop-filter: blur(10px); /* Adds blur effect */
+        flex-grow: 1;
+        padding: 20px;
+        color: #00457C; /* Dark Blue for text */
+        border-radius: 20px; /* Matches the curved edges of the sidebar */
+        margin: 20px;
+        width: calc(100% - 290px); /* Full width minus sidebar width */
+        margin-left:-1px;
+    }
+
+    .footer {
+        background-color: #E8E8E8; /* Light Gray for the footer */
+        color: #00457C; /* Dark Blue for the text */
+        text-align: center;
+        padding: 10px 0;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .footer a {
+        color: #00457C; /* Dark Blue for footer links */
+        text-decoration: none;
+        margin: 0 10px;
+    }
+
+    .footer a:hover {
+        text-decoration: underline;
+    }
+
+    /* Table styles */
+    .table-container {
+    overflow-y: auto; /* Allow vertical scrolling */
+    max-height: 400px; /* Set a maximum height for the table container */
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 69, 124, 0.5);
+    margin: 20px 0;
+    z-index: 2; /* Ensure the table content stays above other elements */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+}
+
+th {
+    position: sticky; /* Make the table headers sticky */
+    top: 0; /* Stick the header to the top of the container */
+    background-color: rgba(0, 69, 124, 0.5); /* Same color as before */
+    color: #00457C;
+    z-index: 3; /* Ensure headers are always on top of table content */
+    padding: 10px; /* Add padding to match table cells */
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid rgba(0, 69, 124, 0.5); /* Border styling */
+    background-color: rgba(255, 255, 255, 0.5); /* Light background color */
+    color: #333333;
+}
+
+
+    th, td {
+        border: 1px solid rgba(0, 69, 124, 0.5);
+        padding: 10px;
+        text-align: left;
+        
+    }
+
+    th {
+        background-color: rgba(0, 69, 124, 0.5);
+        color: #00457C;
+    }
+
+    td {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #333333;
+    }
+
+    .action-buttons a {
+        color: #00457C;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+    .action-buttons a:hover {
+        text-decoration: underline;
+    }
+    body::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(0, 69, 124, 0.5); /* Dark Blue */
+    filter: blur(100px);
+    top: 10%;
+    left: 20%;
+    z-index: -1;
+}
+
+/* Greenish blob */
+body::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(102, 204, 153, 0.5); /* Greenish Teal */
+    filter: blur(100px);
+    top: 50%;
+    right: 20%;
+    z-index: -1;
+}
+
+ 
+body::after {
+    top: 50%;
+    right: 20%;
+    background: rgba(0, 0, 255, 0.5); /* Blue blob */
+}
+</style>

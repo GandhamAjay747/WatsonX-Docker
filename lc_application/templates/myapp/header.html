@@ -1,0 +1,52 @@
+{% load static %}
+<header class="navbar navbar-expand-lg navbar-light custom-header w-100">
+    <div class="container-fluid p-0">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'main/Logo.png' %}" alt="Logo" class="header-logo">
+        </a>
+        <span class="navbar-text header-title">Letter of Credit Application</span>
+        <div class="d-flex">
+            <a href="/" class="btn btn-outline-dark logout-link">LOGOUT</a>
+        </div>
+    </div>
+</header>
+ 
+<style>
+
+.container-fluid {
+    width: 100%; /* Ensures full width for the header */
+}
+
+.custom-header {
+    background-color: rgba(240, 240, 240, 0.7); /* Light Gray with 70% transparency */
+    backdrop-filter: blur(10px); /* Adds blur effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow instead of border */
+    width: 100%;
+    position: relative;
+    z-index: 10; /* Ensures it's on top of other elements */
+    padding: 15px 0;
+    height: 50px;
+}
+
+.header-logo {
+    height: 70px;
+    width: 150px;
+    margin-right: 15px;
+}
+
+.header-title {
+    font-size: 24px;
+    color: #333333; /* Darker text for readability */
+}
+
+.logout-link {
+    color: #333333;
+    text-decoration: none;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+}
+</style>
+ 
+ 

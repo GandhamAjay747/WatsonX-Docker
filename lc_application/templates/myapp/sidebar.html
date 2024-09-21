@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="sidebar bg-dark text-white">
+        <!-- <h2 class="text-center py-3">LC Management System</h2> -->
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'dashboardPage' %}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'add_lc' %}">Add LC</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'view_lc' %}">View LC</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'lc_predict' %}">Predict LC</a>
+            </li>
+        </ul>
+    </div>
+    
+</body>
+</html>
+
+
