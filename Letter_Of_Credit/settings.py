@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-4hf-!t7+t^qjz^7c(yw40#=5jd3z5$a$ugf+yr(bqjx!x!^crj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get('application-ngs.1f0otctknzf7.us-south.codeengine.appdomain.cloud')
+ALLOWED_HOSTS = os.environ.get('application-ngs.1f0otctknzf7.us-south.codeengine.appdomain.cloud','DJANGO_ALLOWED_HOSTS')
 
 # Application definition
 
