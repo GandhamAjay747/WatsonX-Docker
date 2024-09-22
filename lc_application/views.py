@@ -299,7 +299,7 @@ def approve_lc(request, lc_id):
     return render(request, 'myapp/approve_lc.html', {'lc': lc})
 
 def index(request):
-    return render(request, 'myapp/welcomepage.html')
+    return render(request, 'myapp/welcomePage.html')
 
 def navbar(request):
     return render(request, 'myapp/navbar.html')
