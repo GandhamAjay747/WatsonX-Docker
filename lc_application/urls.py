@@ -13,6 +13,5 @@ urlpatterns = [
     path('edit_lc/<int:lc_id>/', views.edit_lc, name='edit_lc'),
     path('delete_lc/<int:lc_id>/', views.delete_lc, name='delete_lc'),
     path('navbar/', views.navbar, name='navbar'),
-    path('sidebar/', views.sidebar, name='sidebar'),
-    
+    path('sidebar/', views.sidebar, name='sidebar'),    
 ]
