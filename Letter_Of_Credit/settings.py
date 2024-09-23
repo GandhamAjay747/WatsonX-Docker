@@ -76,12 +76,12 @@ WSGI_APPLICATION = 'Letter_Of_Credit.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ibmclouddb',
-        'USER': '22ca4717f0ce43c7a7ee51a0b188a9c5',
-        'PASSWORD': '016088239e2c60409831ada2afc6d6279098d61b7fe16d19d751a94b1d76b7fd',
-        'HOST': 'f3dcef5a-6a71-4d79-a615-dac620534c51.c5km1ted03t0e8geevf0.databases.appdomain.cloud',
-        'PORT': '31587',
+        'ENGINE': 'ibm_db_django',
+        'NAME': 'bludb',
+        'USER': 'hyp18637',
+        'PASSWORD': 'mudhyhgEH2AuGVLi',
+        'HOST': 'b0aebb68-94fa-46ec-a1fc-1c999edb6187.c3n41cmd0nqnrk39u98g.databases.appdomain.cloud',
+        'PORT': '31249',
           'OPTIONS': {
              'ssl': {
                  'ca': 'c4808993-945b-4a8e-b4f9-ae0cb1011964'
