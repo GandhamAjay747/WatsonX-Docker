@@ -88,11 +88,6 @@ DATABASES = {
         'PASSWORD': 'mudhyhgEH2AuGVLi',
         'HOST': 'b0aebb68-94fa-46ec-a1fc-1c999edb6187.c3n41cmd0nqnrk39u98g.databases.appdomain.cloud',
         'PORT': '31249',
-        'OPTIONS': {
-            'ssl': {
-                'ca': certificate  # Using the decoded certificate directly
-            },
-        }
     }
 }
 
