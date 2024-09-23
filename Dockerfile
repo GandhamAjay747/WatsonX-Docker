@@ -9,11 +9,11 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
 # Install system dependencies for mysqlclient
-RUN apt-get update && apt-get install -y \
-    default-libmysqlclient-dev \
-    gcc \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && apt-get install -y \
+#     default-libmysqlclient-dev \
+#     gcc \
+#     build-essential \
+#     && rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file first for better caching
 COPY requirements.txt /app/
